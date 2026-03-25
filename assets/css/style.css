@@ -1,14 +1,258 @@
-:root{
-    --background-color-1: #FFCDA2;
-    --background-color-2: #FFA453;
+/* ============================================================
+   Burger Website - style.css
+   Unit Strategy: REM exclusively for all sizing/spacing.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+    /* Brand Colors extracted from Figma */
+    --color-orange-light: #FFCDA2;
+    --color-orange-main: #FFA453;
+    --color-peach: #F6AA66;       /* Solid peach background base */
+    --color-peach-light: #FBC58D; /* Lighter alternating bg */
+    --color-orange-dark: #FF7A00; /* Darker orange text/accents */
+    --color-coral: #F25C43;       /* Footer and accent red/orange */
+    
+    --color-white: #FFFFFF;
+    --color-text-dark: #333333;
+    --color-text-muted: #6B6B6B;
+    
+    /* Z-Index levels */
+    --z-base: 1;
+    --z-above: 2;
+    --z-floating: 10;
 }
 
-.header-section{
-    background: linear-gradient(180deg,var(--background-color-1),var(--background-color-2))
+/* ── Reset / Base ──────────────────────────────────────────── */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-white);
+    background-color: var(--color-peach);
+    overflow-x: hidden;
 }
+
+/* Typography utilities */
+.line-height-tight { line-height: 1.1; }
+.line-height-lg { line-height: 1.6; }
+.letter-spacing-1 { letter-spacing: 0.125rem; }
+.text-orange { color: var(--color-orange-dark) !important; }
+.bg-peach { background-color: var(--color-peach) !important; }
+.bg-peach-light { background-color: var(--color-peach-light) !important; }
+.bg-orange { background-color: var(--color-orange-dark) !important; }
+.bg-coral { background-color: var(--color-coral) !important; }
+
+/* Spacing utilities */
+.py-section { padding: 6rem 0; }
+.z-index-1 { z-index: var(--z-base); }
+.z-index-2 { z-index: var(--z-above); }
+.cursor-pointer { cursor: pointer; }
+
+/* Hover effects */
+.hover-orange:hover {
+    color: var(--color-orange-dark) !important;
+    text-decoration: underline !important;
+}
+
+/* ── Header & Hero Section ─────────────────────────────────── */
+
+.header-section {
+    background: linear-gradient(180deg, var(--color-orange-light), var(--color-orange-main));
+    padding-bottom: 4rem;
+}
+
+.hero-title {
+    font-size: 4rem;
+}
+
+.play-btn {
+    width: 3.5rem;
+    height: 3.5rem;
+    transition: transform 0.3s ease;
+}
+.play-btn:hover {
+    transform: scale(1.1);
+}
+
 .burger-background-img{
     background-image: url(../images/burger-bg-img.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: right;
+}
+
+/* ── Shared Component: Section Titles ──────────────────────── */
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.125rem;
+}
+
+.title-line {
+    display: inline-block;
+    width: 2.5rem;
+    height: 0.125rem;
+    background-color: var(--color-white);
+}
+
+/* ── Hot Items Section ─────────────────────────────────────── */
+.product-card {
+    background: linear-gradient(145deg, #F39E53, #E18A42); /* Slightly darker cards to stand out */
+    border: 0.0625rem solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card-alt {
+    background: linear-gradient(145deg, #FFA95F, #F39E53); /* Alternate color */
+}
+
+.product-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.1) !important;
+}
+
+/* The custom arrow box at the bottom right of the card */
+.card-action-btn {
+    background-color: transparent;
+    border-bottom-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+    background: rgba(255,255,255,0.2);
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+.product-card:hover .card-action-btn {
+    background: var(--color-orange-dark);
+}
+
+/* Arrow Navigation Buttons (Carousel imitation) */
+.nav-arrow-btn {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Carousel Dots */
+.dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+.dot.active {
+    background-color: var(--color-white);
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+/* ── Promo Banner ──────────────────────────────────────────── */
+.promo-section {
+    background-color: var(--color-orange-dark);
+}
+
+/* ── Who We Are Section ────────────────────────────────────── */
+/* Adding space for the red blob */
+.character-wrapper {
+    padding: 2rem;
+}
+.blob-bg {
+    transform: rotate(-5deg) scale(0.95);
+    transition: transform 0.5s ease;
+}
+.character-wrapper:hover .blob-bg {
+    transform: rotate(0deg) scale(1);
+}
+
+/* ── How Does It Works ─────────────────────────────────────── */
+.work-card {
+    margin-top: 3rem; /* Leave room for floating icon */
+    border: 0.125rem solid transparent;
+    transition: transform 0.3s ease, border-color 0.3s;
+}
+.work-card:hover {
+    transform: translateY(-0.5rem);
+    border-color: var(--color-orange-dark);
+}
+
+.work-icon {
+    width: 5rem;
+    height: 5rem;
+    top: -2.5rem; /* Floats half inside, half outside */
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+
+/* ── Testimonials Section ──────────────────────────────────── */
+.testimonial-card {
+    margin-top: 2.5rem;
+    max-width: 50rem;
+}
+
+.quote-icon {
+    width: 5rem;
+    height: 5rem;
+    top: -2.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+
+/* ── Footer Section ────────────────────────────────────────── */
+.subscribe-form input:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* =========================================
+   Responsive Adjustments
+========================================= */
+
+@media (max-width: 991.98px) { /* Tablet */
+    .hero-title {
+        font-size: 3rem;
+    }
+    .discount-badge {
+        width: 6rem;
+        height: 6rem;
+    }
+    .py-section {
+        padding: 5rem 0;
+    }
+    
+    /* Make overlapping cards stack nicely on tablet */
+    .product-card.mt-lg-4 {
+        margin-top: 0 !important;
+    }
+}
+
+@media (max-width: 767.98px) { /* Mobile */
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .py-section {
+        padding: 4rem 0;
+    }
+    .discount-badge {
+        left: 10%;
+    }
+    
+    /* Text centering overrides for mobile */
+    .promo-section {
+        text-align: center;
+    }
+    
+    .who-we-are-section .text-white.pe-lg-5 {
+        padding-right: 0 !important;
+        text-align: center;
+    }
+    
+    /* Hide the horizontal title lines on tiny screens if they overflow */
+    .title-line {
+        width: 1.5rem;
+    }
 }
